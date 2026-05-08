@@ -468,22 +468,25 @@ This project demonstrates understanding of:
 * API integration
 * Modular Python architecture
 * AI-ready data pipelines
-
 ---
 
 # Screenshots Section
 
+## Blog Scraper Output
+
 ![Blog Scraper Output](images/blog_output.png)
-```
-
-![YouTube Scraper Output](images/youtube_output.png)
-```
-
-![PubMed Scraper Output](images/pubmed_output.png)
-```
 
 ---
 
+## YouTube Scraper Output
+
+![YouTube Scraper Output](images/youtube_output.png)
+
+---
+
+## PubMed Scraper Output
+
+![PubMed Scraper Output](images/pubmed_output.png)
 # Author
 
 Sindhu Yesilanka
