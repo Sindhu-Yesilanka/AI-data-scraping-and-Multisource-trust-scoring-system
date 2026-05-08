@@ -473,19 +473,12 @@ This project demonstrates understanding of:
 
 # Screenshots Section
 
-You can add screenshots here later.
-
-Example:
-
-```markdown
 ![Blog Scraper Output](images/blog_output.png)
 ```
 
-```markdown
 ![YouTube Scraper Output](images/youtube_output.png)
 ```
 
-```markdown
 ![PubMed Scraper Output](images/pubmed_output.png)
 ```
 
