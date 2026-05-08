@@ -1,6 +1,15 @@
 from Bio import Entrez
 import json
 
+from scoring.trust_score import (
+    get_author_score,
+    get_domain_score,
+    get_recency_score,
+    get_citation_score,
+    get_disclaimer_score,
+    calculate_trust_score
+)
+
 # -----------------------------------
 # EMAIL REQUIRED BY NCBI
 # -----------------------------------
@@ -29,26 +38,36 @@ records = Entrez.read(handle)
 article = records["PubmedArticle"][0]
 
 # -----------------------------------
-# EXTRACT METADATA
+# EXTRACT ARTICLE DATA
 # -----------------------------------
 
 article_data = article["MedlineCitation"]["Article"]
 
-title = article_data["ArticleTitle"]
+# -----------------------------------
+# TITLE
+# -----------------------------------
+
+title = str(article_data["ArticleTitle"])
+
+# -----------------------------------
+# ABSTRACT
+# -----------------------------------
 
 abstract = ""
 
 if "Abstract" in article_data:
 
-    abstract_sections = article_data["Abstract"]["AbstractText"]
+    abstract_sections = (
+        article_data["Abstract"]["AbstractText"]
+    )
 
     for section in abstract_sections:
 
-        try:
-            abstract += section + " "
+        abstract += str(section) + " "
 
-        except:
-            abstract += str(section) + " "
+# -----------------------------------
+# JOURNAL
+# -----------------------------------
 
 journal = article_data["Journal"]["Title"]
 
@@ -109,6 +128,47 @@ print("\nAbstract Preview:")
 print(abstract[:1000])
 
 # -----------------------------------
+# TRUST SCORE CALCULATION
+# -----------------------------------
+
+author_name = "PubMed Research"
+
+author_score = get_author_score(author_name)
+
+domain_score = get_domain_score(
+    "https://pubmed.ncbi.nlm.nih.gov"
+)
+
+try:
+    recency_score = get_recency_score(
+        int(publication_year)
+    )
+
+except:
+    recency_score = 0.50
+
+citation_count = abstract.lower().count("study")
+
+citation_score = get_citation_score(
+    citation_count
+)
+
+disclaimer_score = get_disclaimer_score(
+    abstract
+)
+
+trust_score = calculate_trust_score(
+    author_score,
+    citation_score,
+    domain_score,
+    recency_score,
+    disclaimer_score
+)
+
+print("\nTrust Score:")
+print(trust_score)
+
+# -----------------------------------
 # FINAL JSON OBJECT
 # -----------------------------------
 
@@ -119,7 +179,8 @@ pubmed_json = {
     "journal": journal,
     "authors": authors,
     "publication_year": publication_year,
-    "abstract": abstract
+    "abstract": abstract,
+    "trust_score": trust_score
 }
 
 # -----------------------------------

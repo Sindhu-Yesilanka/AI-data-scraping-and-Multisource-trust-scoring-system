@@ -1,8 +1,8 @@
-
 from datetime import datetime
 
+
 # -----------------------------------
-# AUTHOR CREDIBILITY SCORE
+# AUTHOR SCORE
 # -----------------------------------
 
 def get_author_score(author_name):
@@ -13,7 +13,8 @@ def get_author_score(author_name):
         "WHO",
         "OpenAI",
         "Google",
-        "Microsoft"
+        "Microsoft",
+        "PubMed"
     ]
 
     if not author_name:
@@ -28,7 +29,7 @@ def get_author_score(author_name):
 
 
 # -----------------------------------
-# DOMAIN AUTHORITY SCORE
+# DOMAIN SCORE
 # -----------------------------------
 
 def get_domain_score(url):
@@ -38,14 +39,14 @@ def get_domain_score(url):
         ".edu",
         "stanford",
         "nih",
-        "who.int"
+        "who.int",
+        "pubmed"
     ]
 
     medium_trust_domains = [
         "medium",
         "towardsdatascience",
-        "infermedica",
-        "youtube"
+        "infermedica"
     ]
 
     lower_url = url.lower()
